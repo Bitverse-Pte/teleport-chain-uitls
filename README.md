@@ -3,7 +3,40 @@
 ### usage
 
 
-##### 1
+#### mode-1
 ```shell
-simd1 rollback-any --home /data/teleport --height ${height}
+simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-1
+```
+
+#### mode-2
+```shell
+simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-2
+```
+
+
+```shell
+panic: version 22 was already saved to different hash C704EF921CAAEDC2175886D8634757C12038708701C3CCF2A6FBF7EBAA1230BF (existing hash 1C5A9A5D805AAA14C3F488F8EE3FE00C607005D15E8E1777EBB3E5BDBEFB94C9)
+
+goroutine 122 [running]:
+github.com/cosmos/cosmos-sdk/store/iavl.(*Store).Commit(0xc001798c70)
+	github.com/cosmos/cosmos-sdk@v0.45.0/store/iavl/store.go:112 +0x165
+github.com/cosmos/cosmos-sdk/store/rootmulti.commitStores(0x16, 0xc001982390)
+	github.com/cosmos/cosmos-sdk@v0.45.0/store/rootmulti/store.go:974 +0x150
+github.com/cosmos/cosmos-sdk/store/rootmulti.(*Store).Commit(0xc0013ac790)
+	github.com/cosmos/cosmos-sdk@v0.45.0/store/rootmulti/store.go:388 +0x6f
+github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).Commit(0xc001882820)
+	github.com/cosmos/cosmos-sdk@v0.45.0/baseapp/abci.go:308 +0x231
+github.com/tendermint/tendermint/abci/client.(*localClient).CommitSync(0xc0017b3da0)
+	github.com/tendermint/tendermint@v0.34.15/abci/client/local_client.go:264 +0xb6
+github.com/tendermint/tendermint/proxy.(*appConnConsensus).CommitSync(0x0)
+	github.com/tendermint/tendermint@v0.34.15/proxy/app_conn.go:93 +0x22
+github.com/tendermint/tendermint/state.(*BlockExecutor).Commit(_, {{{0xb, 0x0}, {0xc000634a20, 0x26}}, {0xc001816b30, 0xf}, 0x11, 0x16, {{0xc0012df100, ...}, ...}, ...}, ...)
+	github.com/tendermint/tendermint@v0.34.15/state/execution.go:228 +0x269
+github.com/tendermint/tendermint/state.(*BlockExecutor).ApplyBlock(_, {{{0xb, 0x0}, {0xc000634a20, 0x26}}, {0xc001816b30, 0xf}, 0x11, 0x16, {{0xc0012df100, ...}, ...}, ...}, ...)
+	github.com/tendermint/tendermint@v0.34.15/state/execution.go:180 +0x6ee
+github.com/tendermint/tendermint/blockchain/v0.(*BlockchainReactor).poolRoutine(0xc00079c380, 0x0)
+	github.com/tendermint/tendermint@v0.34.15/blockchain/v0/reactor.go:398 +0xb7b
+created by github.com/tendermint/tendermint/blockchain/v0.(*BlockchainReactor).OnStart
+	github.com/tendermint/tendermint@v0.34.15/blockchain/v0/reactor.go:110 +0x85
+
 ```
