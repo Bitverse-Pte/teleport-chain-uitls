@@ -1,6 +1,12 @@
 # teleport-rollback-utils
 
-### usage
+### prepare
+```shell
+git clone https://github.com/teleport-network/cosmos-sdk.git
+git checkout rollback-v0.34
+cd cosmos-sdk
+make install
+```
 
 
 #### mode-1
