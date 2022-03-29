@@ -14,7 +14,7 @@ make install
 ```
 simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-1
 ```
-正常情况下上述命1令可以成功裁剪。
+正常情况下上述命令1可以成功回滚。
 
 当上面指令裁剪数据后节点重启失败，并抛出以下错误
 
