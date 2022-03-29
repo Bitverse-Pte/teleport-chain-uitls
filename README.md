@@ -8,17 +8,15 @@ cd cosmos-sdk
 make install
 ```
 
+### 执行顺序
 
-#### mode-1
-```shell
+首先执行命令1：
+```
 simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-1
 ```
+正常情况下上述命1令可以成功裁剪。
 
-#### mode-2
-```shell
-simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-2
-```
-
+当上面指令裁剪数据后节点重启失败，并抛出以下错误
 
 ```shell
 panic: version 22 was already saved to different hash C704EF921CAAEDC2175886D8634757C12038708701C3CCF2A6FBF7EBAA1230BF (existing hash 1C5A9A5D805AAA14C3F488F8EE3FE00C607005D15E8E1777EBB3E5BDBEFB94C9)
@@ -46,3 +44,15 @@ created by github.com/tendermint/tendermint/blockchain/v0.(*BlockchainReactor).O
 	github.com/tendermint/tendermint@v0.34.15/blockchain/v0/reactor.go:110 +0x85
 
 ```
+
+继续执行下列命令2。
+```shell
+simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-2
+```
+
+
+### 注意
+
+- 无法直接执行命令2，有可能会直接破坏数据。
+- 命令1和命令2的区别在于节点panic时，对state的修改不同所导致。
+- 后面考虑将命令1和命令2合在一条命令中。
