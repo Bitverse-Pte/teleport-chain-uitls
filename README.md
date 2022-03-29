@@ -56,3 +56,9 @@ simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-s
 - 无法直接执行命令2，有可能会直接破坏数据。
 - 命令1和命令2的区别在于节点panic时，对state的修改不同所导致。
 - 后面考虑将命令1和命令2合在一条命令中。
+- tendemrint v0.34.14 和 v0.35.15 db的存储结构大不相同，当tendermint升级到v0.35时，测试工具需要做相应修改。
+
+
+### 测试方法
+
+在`binary`文件夹中提供了一个正常节点和恶意节点，恶意节点在高度21时会通过自己的cosmos-sdk篡改数据库。
