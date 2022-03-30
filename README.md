@@ -10,7 +10,13 @@ make install
 
 ### 执行顺序
 
-首先执行命令1：
+备份数据，以防止回滚失败。
+```
+tar -cvf teleport_bak.tar /data/teleport
+```
+
+
+执行命令1：
 ```
 simd rollback-any --home /data/teleport --height ${height} --rollbackMode iavl-storage-1
 ```
