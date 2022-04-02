@@ -12,7 +12,7 @@ make install
 
 备份数据，以防止回滚失败。
 ```
-tar -cvf teleport_bak.tar /data/teleport
+tar -cvf teleport_bak.tar teleport
 ```
 
 
