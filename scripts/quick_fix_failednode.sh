@@ -13,12 +13,6 @@ function  backup_data() {
 }
 
 
-# skip the snapshot peer
-function skip_snapshot_peers(){
-  echo "skip snapshot peers"
-}
-
-
 
 function replace_vars(){
   # query latest height and hash
@@ -38,10 +32,46 @@ function replace_vars(){
   sed -i  "s/$pre_trust_hash/$trust_hash/g" /data/teleport/config/config.toml
 }
 
-# restart the peer
-systemctl start teleport
 
+# skip the snapshot peer
+function skip_snapshot_peers(){
+  echo "skip snapshot peers"
+  str1=`cat /data/teleport/config/config.toml`
+
+  str2="snapshot0"
+  result=$(echo $str1 | grep "${str2}")
+  if [[ "$result" != "" ]]
+  then
+    return
+  else
+    echo "不包含${str2}"
+  fi
+
+  str2="snapshot1"
+  result=$(echo $str1 | grep "${str2}")
+  if [[ "$result" != "" ]]
+  then
+    return
+  else
+    echo "不包含${str2}"
+  fi
+
+
+  str2="snapshot2"
+  result=$(echo $str1 | grep "${str2}")
+  if [[ "$result" != "" ]]
+  then
+    return
+  else
+    echo "不包含${str2}"
+  fi
+
+  replace_vars
+
+}
 
 backup_data
-skip_snapshot_peers
-replace_vars
+replace_vars_in_config
+
+# restart the peer
+systemctl start teleport
